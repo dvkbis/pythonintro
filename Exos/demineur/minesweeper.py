@@ -138,10 +138,32 @@ def has_won(hidden, visible):
 def minesweeper(rows, cols, nb_mines):
     pass
 
+
+
+
+def generate_mines(rows, cols, nb_mines, forbidden_cell):
+    pass
+
 # Commandes utilisateur
 # - o ligne colonne → ouvrir une case
 # - f ligne colonne → poser ou retirer un drapeau
 # 
-def convert_input_user(commandes):
-    pass 
+def get_input_user():
+    input_user = input("o ligne colonne → ouvrir une case // f ligne colonne → poser ou retirer un drapeau")
 
+    parts = input_user.split()
+    result = None
+    if len(parts) != 3:
+        print ("Invalid input")
+    else:
+        cmd = parts[0]
+        if cmd not in ("f", "o"):
+            print("Invalid command - use f(flag) or o (open)")
+        else:
+            try:
+                cell = int(parts[1]), int(parts[2])
+                result = cmd, cell
+            except ValueError:
+                print("Row and column must be integers")
+        
+    return result
