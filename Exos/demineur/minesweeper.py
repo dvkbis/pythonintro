@@ -119,7 +119,17 @@ def print_grid(grid):
 
 # Retourner True si toutes les cases non minées ont été révélées, sinon False.
 def has_won(hidden, visible):
-    pass
+    rows = len(hidden)
+    cols = len(hidden[0])
+
+    for r in range(rows):
+        for c in range(cols):
+            if visible[r][c] == '?' and hidden[r][c] == 0:
+                return False
+            if visible[r][c] == 'f' and hidden[r][c] == 0:
+                return False
+
+    return True
 
 # Fonction principale :
 # - gère les entrées utilisateur
