@@ -14,6 +14,10 @@ def create_grid(rows, cols, value):
 
     return grid
 
+def insert_mines(grid, mines):
+    for r,c in mines:
+        grid[r][c] = 1
+
 # Retourner la liste des coordonnées des cases voisines (8 directions)
 #  en respectant les limites de la grille.
 def get_neighbors(rows, cols, r, c):
@@ -82,7 +86,6 @@ def create_hidden_grid(rows, cols, mines):
 # Révéler une case :
 # - si la case contient un nombre différent de 0 → révéler uniquement cette case
 # - si la case contient 0 → révéler récursivement les cases voisines
-# visible
 
 def reveal(hidden, visible, r, c):
     rows = len(hidden)
@@ -111,6 +114,22 @@ def reveal(hidden, visible, r, c):
    
     reveal_neighbors(r, c)
 
+def drop_flag(visible, r, c):
+    rows = len(visible)
+    cols = len(visible[0])
+
+    if not is_in_grid(rows, cols, r, c):
+        return False
+
+    if isinstance(visible[r][c], int):
+        return False
+    
+    if visible[r][c] == "?":
+        visible[r][c] = "f"    
+    elif visible[r][c] == "f":
+        visible[r][c] = "?"
+
+    return True
 
 # Afficher la grille dans la console.
 def print_grid(grid):
@@ -136,20 +155,42 @@ def has_won(hidden, visible):
 # - gère la logique du jeu
 # - appelle les autres fonctions
 def minesweeper(rows, cols, nb_mines):
-    pass
+    minesweeper_grid = create_grid(rows, cols, 0)
+    visible = create_grid(rows, cols, '?')
+    input_user = get_input_user()
+    if input_user is None:
+        print ("Something wrong happened")
+    else:
+        forbidden_cell = input_user[1]
+        mines = generate_mines(rows, cols, nb_mines, forbidden_cell)
+        insert_mines(minesweeper_grid, mines)
+        print_grid(minesweeper_grid)
+        reveal(minesweeper_grid, visible, forbidden_cell[0], forbidden_cell[1])
+        print_grid(visible)
 
+        unfinished = True
+        while (unfinished):
+            input_user = get_input_user()
+            if input_user is None:
+                print ("Something wrong happened")
+            else:
+                r, c = input_user[1]
+                if input_user[0] == "f":
+                    drop_flag(visible, r, c)
+                else:
+                    reveal(minesweeper_grid, visible, r, c)
 
+                    
+            print_grid(visible)
+            unfinished = not has_won(minesweeper_grid, visible)
 
-
-def generate_mines(rows, cols, nb_mines, forbidden_cell):
-    pass
 
 # Commandes utilisateur
 # - o ligne colonne → ouvrir une case
 # - f ligne colonne → poser ou retirer un drapeau
 # 
 def get_input_user():
-    input_user = input("o ligne colonne → ouvrir une case // f ligne colonne → poser ou retirer un drapeau")
+    input_user = input("o ligne colonne → ouvrir une case // f ligne colonne → poser ou retirer un drapeau: ")
 
     parts = input_user.split()
     result = None
@@ -167,3 +208,5 @@ def get_input_user():
                 print("Row and column must be integers")
         
     return result
+
+minesweeper(4,4,2)
