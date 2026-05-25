@@ -72,16 +72,50 @@ def generate_mines(rows, cols, nb_mines, forbidden_cell):
 # - "*" pour les mines
 # - un entier pour le nombre de mines adjacentes sinon
 def create_hidden_grid(rows, cols, mines):
-    pass
+    minesweeper_grid = create_grid(rows, cols, 0)
+    for r, c in mines:
+        minesweeper_grid[r][c] = 1
+
+    return minesweeper_grid
+
 
 # Révéler une case :
 # - si la case contient un nombre différent de 0 → révéler uniquement cette case
 # - si la case contient 0 → révéler récursivement les cases voisines
+# visible
+
 def reveal(hidden, visible, r, c):
-    pass
+    rows = len(hidden)
+    cols = len(hidden[0])
+
+    if not is_in_grid(rows, cols, r, c):
+        return
+    if hidden[r][c] == 1 or visible[r][c] == 'f':
+        return 
+    
+    def reveal_neighbors(r, c):
+        if visible[r][c] != '?': # and visible[r][c] != 'f':
+            return
+        if hidden[r][c] == 1:
+            return
+        neighbors = get_neighbors(rows, cols, r, c)
+        count = 0
+        for neighbor_r, neighbor_c in neighbors:
+            if hidden[neighbor_r][neighbor_c] == 1:
+                count += 1
+
+        visible[r][c] = count
+        if count == 0:
+            for neighbor_r, neighbor_c in neighbors:
+                reveal_neighbors(neighbor_r, neighbor_c)
+   
+    reveal_neighbors(r, c)
+
+
 # Afficher la grille dans la console.
 def print_grid(grid):
-    pass
+    for row in grid:
+        print(" ".join(map(str,row)))
 
 # Retourner True si toutes les cases non minées ont été révélées, sinon False.
 def has_won(hidden, visible):
