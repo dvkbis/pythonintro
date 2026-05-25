@@ -1,8 +1,16 @@
 # Créer une grille (liste de listes) remplie avec la valeur donnée.
 def create_grid(rows, cols, value):
-    pass
+    if rows < 0 or cols < 0:
+        return None
+    
+    grid = []
+    for _ in range(rows):
+        row = []
+        for _ in range(cols):
+            row.append(value)
+        grid.append(row)
 
-minesweeper_grid = [[0,1,1],[1,0,1],[1,1,1]]
+    return grid
 
 # Retourner la liste des coordonnées des cases voisines (8 directions)
 #  en respectant les limites de la grille.
