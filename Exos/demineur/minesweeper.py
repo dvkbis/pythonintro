@@ -1,3 +1,5 @@
+import random
+
 # Créer une grille (liste de listes) remplie avec la valeur donnée.
 def create_grid(rows, cols, value):
     if rows < 0 or cols < 0:
@@ -37,18 +39,34 @@ def is_in_grid(rows, cols, r, c):
         return False
     return True
 
-def is_mine(rows, cols, r, c):
-    if is_in_grid(rows, cols, r, c):
-        return False
+# def is_mine(rows, cols, r, c):
+#     if is_in_grid(rows, cols, r, c):
+#         return False
         
-    return minesweeper_grid[r][c] == 1
+#     return minesweeper_grid[r][c] == 1
 
 # Générer un ensemble de positions de mines.
 # Contraintes pour generate_mines
 # - ne pas placer deux mines au même endroit
 # - ne pas placer de mine sur forbidden_cell
+def generate_possible_mines(rows, cols, forbidden_cell):
+    mines = []
+    for r in range(rows):
+        for c in range(cols):
+            if (r,c) == forbidden_cell:
+                continue
+            mines.append((r,c))
+    return mines
+
 def generate_mines(rows, cols, nb_mines, forbidden_cell):
-    pass
+    if rows < 0 or cols < 0:
+        return None
+    if nb_mines > rows * cols - 1:
+        return None
+
+    mines = generate_possible_mines(rows, cols, forbidden_cell)
+
+    return random.sample(mines, nb_mines)
 
 # Créer la grille interne du jeu :
 # - "*" pour les mines
