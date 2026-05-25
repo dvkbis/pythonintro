@@ -2,11 +2,38 @@
 def create_grid(rows, cols, value):
     pass
 
+minesweeper_grid = [[0,1,1],[1,0,1],[1,1,1]]
 
 # Retourner la liste des coordonnées des cases voisines (8 directions)
 #  en respectant les limites de la grille.
 def get_neighbors(rows, cols, r, c):
-    pass
+    if not is_in_grid(rows, cols, r, c):
+        return None
+    
+    neighbors_adds = [(-1,-1), (-1, 0), (-1,1),
+                 (0,-1), (0,1),
+                 (1,-1), (1,0), (1,1)]
+    neighbors = set()
+
+    for add in neighbors_adds:
+        next_r, next_c = add[0] + r, add[1] + c
+        if is_in_grid(rows, cols, next_r, next_c):
+            neighbors.add((next_r, next_c))
+            
+    return neighbors
+
+def is_in_grid(rows, cols, r, c):
+    if r < 0 or r >= rows:
+        return False
+    if c < 0 or c >= cols:
+        return False
+    return True
+
+def is_mine(rows, cols, r, c):
+    if is_in_grid(rows, cols, r, c):
+        return False
+        
+    return minesweeper_grid[r][c] == 1
 
 # Générer un ensemble de positions de mines.
 # Contraintes pour generate_mines
