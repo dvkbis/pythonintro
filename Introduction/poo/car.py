@@ -8,10 +8,17 @@ class Car:
     def __init__(self, make, model, year, color="white"):
         # Instance attributes
         self.make = make
-        self.model = model
+        self.__model = model
         self.year = year
         self.color = color
         self.speed = 0
+    @property
+    def model(self):
+        self.__model
+    
+    @model.setter
+    def model(self, value):
+        self.__model = value
 
     def description(self):
         """Return a short description of the car."""
@@ -57,6 +64,8 @@ def main():
     print(car.accelerate(30))
     print(car.brake(15))
     print()
+    car.__model = "Yaris"
+    print(car.__model)
 
     # Create an electric car object using inheritance
     electric = ElectricCar("Tesla", "Model 3", 2024, battery_capacity=75, color="black")
