@@ -1,4 +1,4 @@
-from hero import Hero
+from model.hero import Hero
 
 class Dwarf(Hero):
     BONUS_ENDU = 2

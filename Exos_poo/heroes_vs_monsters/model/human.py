@@ -1,4 +1,4 @@
-from hero import Hero
+from model.hero import Hero
 
 class Human(Hero):
     BONUS_FORCE = 1

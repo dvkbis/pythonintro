@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from dice import Dice
+from model.dice import Dice
 
 class Character:
     def __init__(self, endurance, force, pv, current_life, x, y):
@@ -62,13 +62,13 @@ class Character:
     def hit(self, foe: Character, dice: Dice):
         result = dice.roll()
         result += self.calculer_bonus(self.force)
-        foe.submit_damage(result)
+        foe.submit_damages(result)
 
     def is_alive(self):
         return self.current_life > 0
     
     def submit_damages(self, damages):
-        self.current_life - damages
+        self.current_life = self.current_life - damages
 
     @staticmethod
     def calculer_bonus(value):

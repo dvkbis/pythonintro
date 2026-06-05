@@ -1,7 +1,7 @@
-from skinning_interface import SkinningInterface
-from loot_interface import LootInterface
-from monster import Monster
-from dice import Dice
+from model.skinning_interface import SkinningInterface
+from model.loot_interface import LootInterface
+from model.monster import Monster
+from model.dice import Dice
 
 class Dragonet(Monster, SkinningInterface, LootInterface):
     def __init__(self, endurance, force, pv, current_life, x, y):

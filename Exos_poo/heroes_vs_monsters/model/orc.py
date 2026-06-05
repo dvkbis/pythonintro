@@ -1,6 +1,6 @@
-from monster import Monster
-from dice import Dice
-from loot_interface import LootInterface
+from model.monster import Monster
+from model.dice import Dice
+from model.loot_interface import LootInterface
 
 class Orc(Monster, LootInterface):
     def __init__(self, endurance, force, pv, current_life, x, y):
@@ -18,3 +18,4 @@ class Orc(Monster, LootInterface):
         loot = self.gold
         self.__gold = 0
         return loot
+

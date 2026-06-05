@@ -1,6 +1,6 @@
-from skinning_interface import SkinningInterface
-from monster import Monster
-from dice import Dice
+from model.skinning_interface import SkinningInterface
+from model.monster import Monster
+from model.dice import Dice
 
 class Wolf(Monster, SkinningInterface):
     def __init__(self, endurance, force, pv, current_life, x, y):

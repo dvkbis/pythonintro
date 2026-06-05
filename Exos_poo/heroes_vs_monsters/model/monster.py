@@ -1,4 +1,4 @@
-from character import Character
+from model.character import Character
 from abc import ABC
 
 class Monster(ABC, Character):

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from character import Character
+from model.character import Character
 
 class Hero(ABC, Character):
     def __init__(self, endurance, force, pv, current_life, x, y):
