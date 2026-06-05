@@ -1,168 +1,203 @@
-# Exercice : Implémentation d’un démineur en Python
-
-## Objectif
-
-Réaliser une version simplifiée du jeu du démineur en Python (mode console), sans programmation orientée objet.
-
-Le joueur doit révéler toutes les cases sans tomber sur une mine.
-
----
-
-# Règles du jeu
-
-* La grille est de taille `rows x cols`
-* Certaines cases contiennent des mines (`*`)
-* Les autres cases contiennent un nombre indiquant le nombre de mines adjacentes
-
-Le joueur peut :
-
-* ouvrir une case
-* poser ou retirer un drapeau
-
-Conditions de fin :
-
-* Si une mine est ouverte → **défaite**
-* Si toutes les cases non minées sont révélées → **victoire**
-
----
-
-# Règle spécifique
-
-Les mines ne sont pas placées au début.
-
-* Elles sont générées lors du premier clic
-* La première case ouverte ne peut pas contenir de mine
-
----
-
-# Fonctions à implémenter
-
-## `create_grid`
-
-```python
-def create_grid(rows, cols, value):
-```
-
-Créer une grille (liste de listes) remplie avec la valeur donnée.
-
----
-
-## `get_neighbors`
-
-```python
-def get_neighbors(rows, cols, r, c):
-```
-
-Retourner la liste des coordonnées des cases voisines (8 directions) en respectant les limites de la grille.
-
----
-
-## `generate_mines`
-
-```python
-def generate_mines(rows, cols, nb_mines, forbidden_cell):
-```
-
-Générer un ensemble de positions de mines.
-
-### Contraintes pour `generate_mines`
-
-* ne pas placer deux mines au même endroit
-* ne pas placer de mine sur `forbidden_cell`
-
----
-
-# Fonctions supplémentaires
-
-## `create_hidden_grid`
-
-```python
-def create_hidden_grid(rows, cols, mines):
-```
-
-Créer la grille interne du jeu :
-
-* `"*"` pour les mines
-* un entier pour le nombre de mines adjacentes sinon
-
----
-
-## `reveal`
-
-```python
-def reveal(hidden, visible, r, c):
-```
-
-Révéler une case :
-
-* si la case contient un nombre différent de `0` → révéler uniquement cette case
-* si la case contient `0` → révéler récursivement les cases voisines
-
----
-
-## `print_grid`
-
-```python
-def print_grid(grid):
-```
-
-Afficher la grille dans la console.
-
----
-
-## `has_won`
-
-```python
-def has_won(hidden, visible):
-```
-
-Retourner `True` si toutes les cases non minées ont été révélées, sinon `False`.
-
----
-
-## `minesweeper`
-
-```python
-def minesweeper(rows, cols, nb_mines):
-```
-
-Fonction principale :
-
-* gère les entrées utilisateur
-* gère la logique du jeu
-* appelle les autres fonctions
-
----
-
-# Commandes utilisateur
-
-* `o ligne colonne` → ouvrir une case
-* `f ligne colonne` → poser ou retirer un drapeau
-
----
-
-# Contraintes générales
-
-* utiliser uniquement la bibliothèque standard (`random` autorisé)
-* gérer les entrées invalides :
-
-  * coordonnées hors de la grille
-  * commandes incorrectes
-* structurer le code en fonctions (éviter une seule fonction monolithique)
-
----
-
-# Bonus
-
-* empêcher de poser un drapeau sur une case déjà révélée
-* améliorer l’affichage de la grille
-* ajouter un compteur de coups
-* ajouter un temps de jeu
-
----
-
-# Bonus avancé
-
-* empêcher la génération de mines autour de la première case
-* proposer plusieurs niveaux de difficulté
-* implémenter une interface graphique (optionnel)
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "ce4c091a",
+   "metadata": {},
+   "source": [
+    "# Exercice : Implémentation d’un démineur en Python\n",
+    "\n",
+    "## Objectif\n",
+    "\n",
+    "Réaliser une version simplifiée du jeu du démineur en Python (mode console), sans programmation orientée objet.\n",
+    "\n",
+    "Le joueur doit révéler toutes les cases sans tomber sur une mine.\n",
+    "\n",
+    "---\n",
+    "\n",
+    "# Règles du jeu\n",
+    "\n",
+    "* La grille est de taille `rows x cols`\n",
+    "* Certaines cases contiennent des mines (`*`)\n",
+    "* Les autres cases contiennent un nombre indiquant le nombre de mines adjacentes\n",
+    "\n",
+    "Le joueur peut :\n",
+    "\n",
+    "* ouvrir une case\n",
+    "* poser ou retirer un drapeau\n",
+    "\n",
+    "Conditions de fin :\n",
+    "\n",
+    "* Si une mine est ouverte → **défaite**\n",
+    "* Si toutes les cases non minées sont révélées → **victoire**\n",
+    "\n",
+    "---\n",
+    "\n",
+    "# Règle spécifique\n",
+    "\n",
+    "Les mines ne sont pas placées au début.\n",
+    "\n",
+    "* Elles sont générées lors du premier clic\n",
+    "* La première case ouverte ne peut pas contenir de mine\n",
+    "\n",
+    "---\n",
+    "\n",
+    "# Fonctions à implémenter\n",
+    "\n",
+    "## `create_grid`\n",
+    "\n",
+    "```python\n",
+    "def create_grid(rows, cols, value):\n",
+    "```\n",
+    "\n",
+    "Créer une grille (liste de listes) remplie avec la valeur donnée.\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## `get_neighbors`\n",
+    "\n",
+    "```python\n",
+    "def get_neighbors(rows, cols, r, c):\n",
+    "```\n",
+    "\n",
+    "Retourner la liste des coordonnées des cases voisines (8 directions) en respectant les limites de la grille.\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## `generate_mines`\n",
+    "\n",
+    "```python\n",
+    "def generate_mines(rows, cols, nb_mines, forbidden_cell):\n",
+    "```\n",
+    "\n",
+    "Générer un ensemble de positions de mines.\n",
+    "\n",
+    "### Contraintes pour `generate_mines`\n",
+    "\n",
+    "* ne pas placer deux mines au même endroit\n",
+    "* ne pas placer de mine sur `forbidden_cell`\n",
+    "\n",
+    "---\n",
+    "\n",
+    "# Fonctions supplémentaires\n",
+    "\n",
+    "## `create_hidden_grid`\n",
+    "\n",
+    "```python\n",
+    "def create_hidden_grid(rows, cols, mines):\n",
+    "```\n",
+    "\n",
+    "Créer la grille interne du jeu :\n",
+    "\n",
+    "* `\"*\"` pour les mines\n",
+    "* un entier pour le nombre de mines adjacentes sinon\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## `reveal`\n",
+    "\n",
+    "```python\n",
+    "def reveal(hidden, visible, r, c):\n",
+    "```\n",
+    "\n",
+    "Révéler une case :\n",
+    "\n",
+    "* si la case contient un nombre différent de `0` → révéler uniquement cette case\n",
+    "* si la case contient `0` → révéler récursivement les cases voisines\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## `print_grid`\n",
+    "\n",
+    "```python\n",
+    "def print_grid(grid):\n",
+    "```\n",
+    "\n",
+    "Afficher la grille dans la console.\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## `has_won`\n",
+    "\n",
+    "```python\n",
+    "def has_won(hidden, visible):\n",
+    "```\n",
+    "\n",
+    "Retourner `True` si toutes les cases non minées ont été révélées, sinon `False`.\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## `minesweeper`\n",
+    "\n",
+    "```python\n",
+    "def minesweeper(rows, cols, nb_mines):\n",
+    "```\n",
+    "\n",
+    "Fonction principale :\n",
+    "\n",
+    "* gère les entrées utilisateur\n",
+    "* gère la logique du jeu\n",
+    "* appelle les autres fonctions\n",
+    "\n",
+    "---\n",
+    "\n",
+    "# Commandes utilisateur\n",
+    "\n",
+    "* `o ligne colonne` → ouvrir une case\n",
+    "* `f ligne colonne` → poser ou retirer un drapeau\n",
+    "\n",
+    "---\n",
+    "\n",
+    "# Contraintes générales\n",
+    "\n",
+    "* utiliser uniquement la bibliothèque standard (`random` autorisé)\n",
+    "* gérer les entrées invalides :\n",
+    "\n",
+    "  * coordonnées hors de la grille\n",
+    "  * commandes incorrectes\n",
+    "* structurer le code en fonctions (éviter une seule fonction monolithique)\n",
+    "\n",
+    "---\n",
+    "\n",
+    "# Bonus\n",
+    "\n",
+    "* empêcher de poser un drapeau sur une case déjà révélée\n",
+    "* améliorer l’affichage de la grille\n",
+    "* ajouter un compteur de coups\n",
+    "* ajouter un temps de jeu\n",
+    "\n",
+    "---\n",
+    "\n",
+    "# Bonus avancé\n",
+    "\n",
+    "* empêcher la génération de mines autour de la première case\n",
+    "* proposer plusieurs niveaux de difficulté\n",
+    "* implémenter une interface graphique (optionnel)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2cab13bd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def generer_demineur(row, col):\n",
+    "    pass\n",
+    "\n",
+    "\n",
+    "def run_demineur():\n",
+    "    pass\n",
+    "\n",
+    "def \n"
+   ]
+  }
+ ],
+ "metadata": {
+  "language_info": {
+   "name": "python"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
