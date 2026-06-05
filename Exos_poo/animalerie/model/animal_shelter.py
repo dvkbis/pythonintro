@@ -49,6 +49,12 @@ class AnimalShelter():
         days_events = []
         for animal in self.animals:
             animal.pass_day()
+            ## cat events
+            if isinstance(animal, Cat) and animal._claw_size == Cat.CLAW_MAX:
+                days_events.append(f"{animal.name}: scratched me !!")
+                animal.cut_claws()
+                days_events.append(f"{animal.name}: I cut its claws")
+                
             days_events.append(f"{animal.name}: {animal.make_sound()}")
 
         return days_events

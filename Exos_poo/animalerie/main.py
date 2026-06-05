@@ -55,7 +55,17 @@ def main():
             habitat="Cage"
         )
     )
-
+    animal_shelter.add_animal(
+        Bird(
+            name="Lugia",
+            weight=216,
+            size=5.2,
+            gender=Gender.MALE,
+            age=9,
+            color="White",
+            habitat="Unkown"
+        )
+    )
     animal_shelter.add_animal(
         Cat(
             name="Sylvester",
