@@ -6,7 +6,7 @@ class Cat(Animal):
     PROBA_DEATH = 30
     SOUND = "Meow!"
     CLAW_MIN = 0
-    CLAW_MAX = 3
+    CLAW_MAX = 6
     CHEAT_LIVES = 4
 
     def __init__(

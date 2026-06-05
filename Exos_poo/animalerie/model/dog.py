@@ -2,7 +2,7 @@ from model.animal import Animal
 
 class Dog(Animal):
 
-    PROBA_DEATH = 1
+    PROBA_DEATH = 15
     SOUND = "Woaf!"
 
     def __init__(self, name, weight, size, gender, age, collar_color, trained, breed):
