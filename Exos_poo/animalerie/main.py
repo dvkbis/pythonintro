@@ -111,6 +111,13 @@ def main():
         info = animal_shelter.simulate_night()
         print(f" > {'\n > '.join(info)}")
 
+        print(
+            f"{animal_shelter.name} has "
+            f"{animal_shelter.count_birds()} bird(s), "
+            f"{animal_shelter.count_cats()} cat(s), "
+            f"{animal_shelter.count_dogs()} dog(s)"
+            )
+
         input("Press Enter to continue...")
 
 
