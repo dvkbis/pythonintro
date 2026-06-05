@@ -32,9 +32,9 @@ class AnimalShelter():
         self.animals.remove(animal)
 
     def get_animals_description(self):
-        desc = "\n -".join(animal.get_description() for animal in self.animals)
+        desc = "\n > ".join(animal.get_description() for animal in self.animals)
 
-        return f"Animals description: \n {desc}"
+        return f"Animals description: \n > {desc}"
     
     def count_dogs(self) -> int:
         return sum(isinstance(animal, Dog) for animal in self.animals)
@@ -49,7 +49,7 @@ class AnimalShelter():
         days_events = []
         for animal in self.animals:
             animal.pass_day()
-            days_events.append(f"- {animal.name}: {animal.make_sound()}")
+            days_events.append(f"{animal.name}: {animal.make_sound()}")
 
         return days_events
 
@@ -62,10 +62,13 @@ class AnimalShelter():
             animal.pass_night()
 
             if animal.is_dead:
-                night_events.append(f"- {animal.name} is dead :(")
+                night_events.append(f"{animal.name} is dead :(")
                 dead_animals.append(animal)
 
-            # Remove all dead animals
-            for animal in dead_animals:
-                dead_animals.remove(animal)
+        # Remove all dead animals
+        for animal in dead_animals:
+            try:
+                self.remove_animal(animal)
+            except Exception:
+                print(f"ERROR : Can't remove this animal : {animal.name}")
         return night_events
