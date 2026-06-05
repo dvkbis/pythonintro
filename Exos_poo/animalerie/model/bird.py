@@ -1,7 +1,7 @@
 from model.animal import Animal, Gender
 
 class Bird(Animal):
-    PROBA_DEATH = 3
+    PROBA_DEATH = 50
     MALE_SOUND = "Pew Pew!"
     FEMALE_SOUND = "Cew Cew!"
 

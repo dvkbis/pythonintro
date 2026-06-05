@@ -9,10 +9,10 @@ def main():
 
     animal_shelter.add_animal(
         Cat(
-            name="The cat",
-            weight=5,
+            name="Garfield",
+            weight=7,
             size=0.5,
-            gender=Gender.FEMALE,
+            gender=Gender.MALE,
             age=4,
             personality="Playful",
             long_hair=False
@@ -21,20 +21,20 @@ def main():
 
     animal_shelter.add_animal(
         Dog(
-            name="The dog",
+            name="Lassie",
             weight=12,
             size=0.3,
-            gender=Gender.MALE,
+            gender=Gender.FEMALE,
             age=15,
             collar_color="Blue",
             trained=False,
-            breed="Basset"
+            breed="Colley"
         )
     )
 
     animal_shelter.add_animal(
         Cat(
-            name="Bernard",
+            name="Puss in boots",
             weight=6,
             size=0.5,
             gender=Gender.MALE,
@@ -80,17 +80,29 @@ def main():
             breed="German Shepherd"
         )
     )
+    day_number = 0
 
     # Simulation loop
     while animal_shelter.animals:
+        day_number += 1
+        print("-----------------------")
+        print(f"   DAY {day_number}")
+        print("-----------------------")
 
         print(animal_shelter.get_animals_description())
 
         info = animal_shelter.simulate_day()
-
-        print(info)
+        print()
+        print("Day is passing...")
+        print(f" > {'\n > '.join(info)}")
         print()
 
+        print("Night is passing...")
+        info = animal_shelter.simulate_night()
+        print(f" > {'\n > '.join(info)}")
+
         input("Press Enter to continue...")
+
+
 if __name__ == "__main__":
     main()

@@ -3,11 +3,11 @@ from model.animal import Animal, Gender
 
 class Cat(Animal):
 
-    PROBA_DEATH = 5
+    PROBA_DEATH = 30
     SOUND = "Meow!"
     CLAW_MIN = 0
     CLAW_MAX = 10
-    CHEAT_LIVES = 9
+    CHEAT_LIVES = 4
 
     def __init__(
         self,
@@ -26,9 +26,7 @@ class Cat(Animal):
         self._claw_size = randint(self.CLAW_MIN, self.CLAW_MAX - 2)
         self._remaining_lives = self.CHEAT_LIVES
 
-    # =========================
     # Getters / Setters
-    # =========================
 
     @property
     def personality(self):
@@ -50,9 +48,7 @@ class Cat(Animal):
     def claw_cut(self) -> bool:
         return self._claw_size < self.CLAW_MAX
 
-    # =========================
     # Abstract overrides
-    # =========================
 
     def death_probability(self) -> float:
         return self.PROBA_DEATH
@@ -60,20 +56,16 @@ class Cat(Animal):
     def make_sound(self) -> str:
         return self.SOUND
 
-    # =========================
     # Description override
-    # =========================
 
     def get_description(self) -> str:
         return (
-            f"(Cat) {super().get_description()}, "
+            f"(cat) {super().get_description()}, "
             f"Personality: {self.personality}, "
             f"Hair: {'long' if self.long_hair else 'short'}"
         )
 
-    # =========================
     # Behavior methods
-    # =========================
 
     def pass_day(self):
         super().pass_day()
@@ -89,5 +81,5 @@ class Cat(Animal):
         if self._remaining_lives < 0:
             super().die()
 
-        print("Dead?")
+        print(f" > {self.name} Dead...?")
         self._remaining_lives -= 1
