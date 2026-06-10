@@ -17,7 +17,7 @@ class Section(Base):
 
     id: Mapped[int] = db.Column(db.Integer, primary_key=True)
     name: Mapped[str] = db.Column(db.String(50))
-
+    # can use alter
     # delegate_id: Mapped[int] = db.Column(db.Integer, db.ForeignKey("student.id"))
     # delegate: Mapped["Student"] = relationship("Student", foreign_keys=[delegate_id])
 
