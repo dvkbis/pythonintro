@@ -42,3 +42,22 @@
 - examen rh si réussi
 - 2h avec un dev odoo sur les réponses coderbyte
 - help -fn on console
+
+## Migration (DB)
+- 2 états (Upgrade / Downgrade)
+- revenir à un état
+- Contient la structure de la DB
+- Attention quand on rename une col, on perd nos data -> Use op.alter_column() dans le fichier de migration
+- /!\ Ajouter ces classes dans le fichier __init__.py et les imports
+### Commands
+- python -m alembic init alembic   
+- python -m alembic revision --autogenerate -m "Add Customer Table"
+- python -m alembic upgrade head 
+- python -m alembic downgrade -1  
+- python -m alembic current 
+- python -m alembic revision
+
+## venv
+- python -m venv venv
+- \venv\script\activate
+- pip install sqlalchemy alembic psyopg2-binary
