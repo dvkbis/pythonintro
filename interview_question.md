@@ -59,3 +59,6 @@ L'architecture 3 couches consiste à séparer une application en une couche Pré
 * Controller → couche Présentation
 * Service → couche Métier
 * Repository → couche Accès aux Données
+
+### API
+

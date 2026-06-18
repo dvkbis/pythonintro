@@ -61,3 +61,7 @@
 - python -m venv venv
 - \venv\script\activate
 - pip install sqlalchemy alembic psyopg2-binary
+
+## Test unitaire
+- pytest / unitest
+- Mock (DB)

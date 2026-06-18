@@ -1,9 +1,10 @@
 from sqlalchemy.orm import Session
 from app.models.product import Product
+from app.db.db_connect import DBConnect
 
 class ProductRepository:
     def __init__(self, db: Session):
-        self.db = db
+        self.db = DBConnect()
 
     def create(self, product: Product) -> Product:
         self.db.add(product)
