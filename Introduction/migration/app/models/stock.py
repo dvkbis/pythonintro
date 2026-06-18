@@ -5,7 +5,7 @@ from app.models.base import Base
 
 class Stock(Base):
     __tablename__ = "stock"
-
+    
     id = Column(Integer, primary_key= True)
 
     product_id = Column(Integer, ForeignKey("product.id"), nullable= False, unique= True)
