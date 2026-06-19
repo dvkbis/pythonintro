@@ -65,3 +65,11 @@
 ## Test unitaire
 - pytest / unitest
 - Mock (DB)
+
+## Greedy
+- Jump Game → conserver la position la plus loin atteignable
+- Best Time to Buy and Sell Stock → conserver le prix le plus bas observé
+
+# enumerates
+ for i, c in enumerate(s):
+    end = max(end, last[c]) 
